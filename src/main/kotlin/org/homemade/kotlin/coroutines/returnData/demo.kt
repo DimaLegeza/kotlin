@@ -1,8 +1,7 @@
-package org.homemade.kotlin.coroutines.returnData.channels
+package org.homemade.kotlin.coroutines.returnData
 
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.consume
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
