@@ -1,4 +1,4 @@
-package org.homemade.kotlin.coroutines.returnData
+package org.homemade.kotlin.coroutines.returnData.asyncAwait
 
 import kotlinx.coroutines.*
 import kotlin.random.Random
