@@ -1,8 +1,8 @@
 package org.homemade.kotlin.coroutines.actors.calculatePi
 
 import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.actor
 import kotlinx.coroutines.runBlocking
@@ -10,10 +10,12 @@ import kotlin.system.measureTimeMillis
 
 sealed class PiMessage
 class Start(val response: CompletableDeferred<Double>, val workers: Long): PiMessage()
-class Work(var channel: Channel<PiMessage>, val start: Long, val end: Long, val worker: Long): PiMessage()
 class Result(val result: Double): PiMessage()
 
-fun CoroutineScope.piActor() = actor<Work> {
+class Work(var channel: Channel<PiMessage>, val start: Long, val end: Long, val worker: Long)
+
+@ObsoleteCoroutinesApi
+fun piActor() = GlobalScope.actor<Work> {
     var total = 0.0
 
     for (msg in channel) {
@@ -25,7 +27,8 @@ fun CoroutineScope.piActor() = actor<Work> {
     }
 }
 
-fun CoroutineScope.workerActor() = actor<PiMessage> {
+@ObsoleteCoroutinesApi
+fun workerActor() = GlobalScope.actor<PiMessage> {
     lateinit var response: CompletableDeferred<Double>
     var total = 0.0
     var workers: Long = 0
@@ -57,6 +60,7 @@ fun CoroutineScope.workerActor() = actor<PiMessage> {
     }
 }
 
+@ObsoleteCoroutinesApi
 fun main() = runBlocking {
     val response = CompletableDeferred<Double>()
 
